@@ -13,22 +13,22 @@ export function loadChartData(security: string, start: number) {
   const url = `https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/${security}.xml?from=${from}&till=${till}&start=${start}`;
 
   return fetch(url)
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         return response.text();
       } else {
         throw "Error " + response.status;
       }
     })
-    .then(xmlText => parseXML(xmlText));
+    .then((xmlText) => parseXML(xmlText));
 }
 
 function parseXML(xmlString: string) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(xmlString, "text/xml");
   const rows = doc.documentElement.getElementsByTagName("rows")[0];
-  const tradeData: ChartData = []; 
-  rows.childNodes.forEach(rowNode => {
+  const tradeData: ChartData = [];
+  rows.childNodes.forEach((rowNode) => {
     if (rowNode.nodeName === "row") {
       const el = rowNode as Element;
       tradeData.push({

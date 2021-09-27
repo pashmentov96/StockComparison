@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 import { ChangeCurrentTicker } from "../Actions";
 
-export const tickerReducer = (state: string = "SBER", action: ChangeCurrentTicker) => {
+export const tickerReducer = (
+  state: string = "SBER",
+  action: ChangeCurrentTicker
+) => {
   switch (action.type) {
     case "CHANGE_CURRENT_TICKER":
       return action.payload;
@@ -15,5 +18,5 @@ export const rootReducer = combineReducers({
 });
 
 export interface RootState {
-  ticker: string,
+  ticker: string;
 }

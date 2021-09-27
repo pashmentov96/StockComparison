@@ -6,7 +6,12 @@
   padding: 0 8px;
   box-sizing: border-box;
 
-  .input-wrapper {
+  .search-input-wrapper {
     margin-top: 8px;
+
+    .search-input {
+      width: 100px;
+      margin-right: 8px;
+    }
   }
 }

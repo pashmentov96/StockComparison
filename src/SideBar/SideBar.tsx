@@ -9,16 +9,16 @@ export function SideBar() {
   return (
     <div className="side-bar">
       <span>Ticker selection:</span>
-      <div className="input-wrapper">
+      <div className="search-input-wrapper">
         <input
           placeholder={"SBER"}
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
+          className="search-input"
         />
         <button onClick={() => dispatch(changeCurrentTicker(inputValue))}>
           Show
         </button>
-        <span></span>
       </div>
     </div>
   );

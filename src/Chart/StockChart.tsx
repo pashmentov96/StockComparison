@@ -1,8 +1,8 @@
-import "./StockChart.scss";
 import { useEffect, useState } from "react";
 import { ChartData } from "./types";
 import { createChart } from "./utils/createChart";
 import { loadChartData } from "./utils/loadChartData";
+import "./StockChart.scss";
 
 export interface LineChartProps {
   security: string;
@@ -19,7 +19,7 @@ export function StockChart({ security }: LineChartProps) {
 
   useEffect(() => {
     if (isLoaded && chartData.length > 0) {
-      const chart = createChart(chartData);
+      createChart(chartData);
     }
   }, [isLoaded]);
 
@@ -31,7 +31,7 @@ export function StockChart({ security }: LineChartProps) {
 
   useEffect(() => {
     if (!isLoaded && security !== "") {
-      loadChartData(security, currentIndex).then(result => {
+      loadChartData(security, currentIndex).then((result) => {
         if (result.length === 0) {
           setIsLoaded(true);
         } else {
@@ -44,7 +44,5 @@ export function StockChart({ security }: LineChartProps) {
     }
   }, [isLoaded, currentIndex]);
 
-  return (
-    <div id="chart-div" className="chart-container"></div>
-  );
+  return <div id="chart-div" className="chart-container"></div>;
 }

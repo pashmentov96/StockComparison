@@ -8,4 +8,4 @@ export const changeCurrentTicker = (newValue: string) => {
     type: "CHANGE_CURRENT_TICKER",
     payload: newValue,
   } as ChangeCurrentTicker;
-}
+};
