@@ -17,7 +17,7 @@ export function loadChartData(security: string, start: number) {
       if (response.ok) {
         return response.text();
       } else {
-        throw "Error " + response.status;
+        throw new Error("Error " + response.status);
       }
     })
     .then((xmlText) => parseXML(xmlText));
@@ -37,6 +37,5 @@ function parseXML(xmlString: string) {
       });
     }
   });
-  console.log(tradeData);
   return tradeData;
 }
