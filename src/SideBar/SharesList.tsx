@@ -4,7 +4,8 @@ import { SecurityInfo } from "./types";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeCurrentTicker } from "../Actions";
-import { loadSecuritiesList } from "./utils";
+import { loadSecuritiesList, searchInSharesList } from "./utils";
+import { List, ListRowProps } from "react-virtualized";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
@@ -20,43 +21,39 @@ export function SharesList() {
 
   const onShareClick = (secId: string) => () => {
     dispatch(changeCurrentTicker(secId));
-    if (secId !== "") {
-      setInputValue(secId);
-    }
+    setInputValue("");
+  };
+
+  const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
+  const rowRenderer = ({ index, style }: ListRowProps) => {
+    const { secId, shortName } = sharesListWhileSearch[index];
+    return (
+      <div key={secId} style={style}>
+        <div className="shares-list__element" onClick={onShareClick(secId)}>
+          {shortName}
+        </div>
+      </div>
+    );
   };
 
   return (
-    <div className="shares-list">
+    <div className="shares-list-wrapper">
       <div className="search-input-wrapper">
         <input
-          placeholder={"Type ticker"}
+          placeholder={"Search share"}
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
           className="search-input"
         />
-        <button onClick={() => dispatch(changeCurrentTicker(inputValue))}>
-          Show
-        </button>
       </div>
-      <select className="select-share">
-        <option key={"SELECT_ID"} onClick={onShareClick("")}>
-          Choose share
-        </option>
-        {searchInShareList(sharesList, inputValue).map((share) => (
-          <option key={share.secId} onClick={onShareClick(share.secId)}>
-            {share.shortName}
-          </option>
-        ))}
-      </select>
+      <List
+        width={150}
+        height={300}
+        rowCount={sharesListWhileSearch.length}
+        rowHeight={25}
+        rowRenderer={rowRenderer}
+        className="shares-list"
+      />
     </div>
-  );
-}
-
-function searchInShareList(shareList: SecurityInfo[], searchString: string) {
-  if (searchString === "") {
-    return shareList;
-  }
-  return shareList.filter((share) =>
-    share.shortName.toLowerCase().startsWith(searchString.toLowerCase())
   );
 }

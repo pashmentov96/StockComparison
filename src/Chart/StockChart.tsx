@@ -9,6 +9,7 @@ export interface LineChartProps {
   security: string;
 }
 
+// TODO: rerender when changing width happened
 export function StockChart({ security }: LineChartProps) {
   const [chartData, setChartData] = useState([] as ChartData);
   const [isLoaded, setIsLoaded] = useState(false);

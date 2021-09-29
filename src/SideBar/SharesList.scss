@@ -1,20 +1,29 @@
-.shares-list {
+.shares-list-wrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   .search-input-wrapper {
     margin-top: 8px;
 
     .search-input {
-      width: 100px;
+      width: 150px;
       margin-right: 8px;
 
       border-width: 1px;
     }
   }
 
-  .select-share {
-    width: 151px;
-    margin-top: 8px;
+  .shares-list {
+    margin-top: 10px;
+
+    &__element {
+      height: 100%;
+      padding: 0 5px;
+      &:hover {
+        cursor: pointer;
+        background-color: beige;
+      }
+    }
   }
 }

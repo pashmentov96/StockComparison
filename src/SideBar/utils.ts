@@ -4,7 +4,11 @@ import { SecurityInfo } from "./types";
 // engine: stock, market: index, board: SNDX
 // engine: stock, market: shares, board: TQTF, TQTD
 // engine: currency, market: selt, board: CETS
-export function loadSecuritiesList(engine: string, market: string, board: string) {
+export function loadSecuritiesList(
+  engine: string,
+  market: string,
+  board: string
+) {
   const url = `https://iss.moex.com/iss/engines/${engine}/markets/${market}/boards/${board}/securities.json?iss.meta=off&iss.only=securities&securities.columns=SECID,SHORTNAME,LISTLEVEL`;
   return fetch(url)
     .then((response) => {
@@ -15,6 +19,18 @@ export function loadSecuritiesList(engine: string, market: string, board: string
       }
     })
     .then((json) => extractDataFromJSON(json));
+}
+
+export function searchInSharesList(
+  sharesList: SecurityInfo[],
+  searchString: string
+) {
+  if (searchString === "") {
+    return sharesList;
+  }
+  return sharesList.filter((share) =>
+    share.shortName.toLowerCase().startsWith(searchString.toLowerCase())
+  );
 }
 
 function extractDataFromJSON(json: any) {
