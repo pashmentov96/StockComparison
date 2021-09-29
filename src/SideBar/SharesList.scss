@@ -1,0 +1,20 @@
+.shares-list {
+  display: flex;
+  flex-direction: column;
+
+  .search-input-wrapper {
+    margin-top: 8px;
+
+    .search-input {
+      width: 100px;
+      margin-right: 8px;
+
+      border-width: 1px;
+    }
+  }
+
+  .select-share {
+    width: 151px;
+    margin-top: 8px;
+  }
+}

@@ -1,8 +1,9 @@
+import "./StockChart.scss";
+
 import { useEffect, useState } from "react";
 import { ChartData } from "./types";
 import { createChart } from "./utils/createChart";
 import { loadChartData } from "./utils/loadChartData";
-import "./StockChart.scss";
 
 export interface LineChartProps {
   security: string;
