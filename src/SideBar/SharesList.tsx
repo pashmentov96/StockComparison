@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { changeCurrentTicker } from "../Actions";
 import { loadSecuritiesList, searchInSharesList } from "./utils";
 import { List, ListRowProps } from "react-virtualized";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
@@ -45,6 +47,9 @@ export function SharesList() {
           onChange={(event) => setInputValue(event.target.value)}
           className="search-input"
         />
+        <button className="search-input-wrapper__reset">
+          <FontAwesomeIcon icon={faTimesCircle} onClick={() => setInputValue("")} />
+        </button>
       </div>
       <List
         width={150}
