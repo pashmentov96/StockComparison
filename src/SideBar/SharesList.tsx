@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeCurrentTicker } from "../Actions";
 import { loadSecuritiesList, searchInSharesList } from "./utils";
-import { List, ListRowProps } from "react-virtualized";
+import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
@@ -48,17 +48,24 @@ export function SharesList() {
           className="search-input"
         />
         <button className="search-input-wrapper__reset">
-          <FontAwesomeIcon icon={faTimesCircle} onClick={() => setInputValue("")} />
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            onClick={() => setInputValue("")}
+          />
         </button>
       </div>
-      <List
-        width={150}
-        height={300}
-        rowCount={sharesListWhileSearch.length}
-        rowHeight={25}
-        rowRenderer={rowRenderer}
-        className="shares-list"
-      />
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            width={width}
+            height={height}
+            rowCount={sharesListWhileSearch.length}
+            rowHeight={25}
+            rowRenderer={rowRenderer}
+            className="shares-list"
+          />
+        )}
+      </AutoSizer>
     </div>
   );
 }
