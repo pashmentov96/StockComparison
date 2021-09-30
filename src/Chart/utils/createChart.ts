@@ -7,7 +7,6 @@ export function createChart(data: ChartData) {
   const chart = am4core.create("chart-div", am4charts.XYChart); // chart-div!
 
   am4core.useTheme(am4themes_animated);
-  am4core.options.autoDispose = true;
 
   chart.data = data;
 
@@ -33,4 +32,5 @@ export function createChart(data: ChartData) {
 
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.scrollbarX = new am4core.Scrollbar();
+  return chart;
 }
