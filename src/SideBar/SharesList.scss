@@ -3,10 +3,10 @@
   flex-direction: column;
   position: relative;
   height: 40%;
-  width: 150px;
+  width: 180px;
 
   .search-input-wrapper {
-    width: 150px;
+    width: 100%;
     margin-top: 8px;
     position: relative;
 
@@ -46,6 +46,20 @@
       &:hover {
         cursor: pointer;
         background-color: beige;
+      }
+    }
+
+    &__action-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      z-index: 1;
+  
+      &:hover {
+        cursor: pointer;
       }
     }
   }

@@ -1,13 +1,13 @@
 import "./SharesList.scss";
 
 import { SecurityInfo } from "./types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTicker, removeTicker } from "../Actions";
+import { addTicker, removeTicker, replaceTicker } from "../Actions";
 import { loadSecuritiesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
+import { faTimesCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import classNames from "classnames";
 
 export function SharesList() {
@@ -23,27 +23,47 @@ export function SharesList() {
     );
   }, []);
 
-  const onShareClick = (secId: string) => () => {
-    if (selectedSharesList.includes(secId)) {
+  const onShareClick = (secId: string) => (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    if (selectedSharesList.length === 1 && !selectedSharesList.includes(secId)) {
+      dispatch(replaceTicker(selectedSharesList[0], secId))
+      setInputValue("");
+      setSelectedSharesList([secId]);
+    }
+  };
+
+  const onRemoveShareFromCompare = (secId: string) => (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    if (selectedSharesList.length > 1) {
       dispatch(removeTicker(secId));
       setSelectedSharesList(selectedSharesList.filter((id) => id !== secId));
-    } else {
-      dispatch(addTicker(secId));
-      setInputValue("");
-      setSelectedSharesList([...selectedSharesList, secId]);
     }
+  };
+
+  const onAddShareToCompare = (secId: string) => (event: React.MouseEvent) => {
+    event.stopPropagation();
+  
+    dispatch(addTicker(secId));
+    setInputValue("");
+    setSelectedSharesList([...selectedSharesList, secId]);
   };
 
   const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
   const rowRenderer = ({ index, style }: ListRowProps) => {
     const { secId, shortName } = sharesListWhileSearch[index];
+    const isSelected = selectedSharesList.includes(secId);
     const className = classNames("shares-list__element", {
-      ["shares-list__element shares-list__element--selected"]: selectedSharesList.includes(secId),
+      ["shares-list__element--selected"]: isSelected,
     });
     return (
       <div key={secId} style={style}>
         <div className={className} onClick={onShareClick(secId)}>
-          {shortName}
+          <span>{shortName}</span>
+          <button className="shares-list__action-icon" onClick={isSelected ? onRemoveShareFromCompare(secId) : onAddShareToCompare(secId)}>
+            <FontAwesomeIcon icon={isSelected ? faTimesCircle : faCheckCircle} />
+          </button>
         </div>
       </div>
     );

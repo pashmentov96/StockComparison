@@ -30,6 +30,7 @@ export function createChart(data: SeriesData) {
 
   const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
   dateAxis.renderer.minGridDistance = 60;
+  dateAxis.renderer.grid.template.disabled = true;
 
   const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 

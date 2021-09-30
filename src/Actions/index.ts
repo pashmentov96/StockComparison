@@ -8,10 +8,18 @@ export interface RemoveTicker {
   payload: string;
 }
 
-export const addTicker = (newValue: string) => {
+export interface ReplaceTicker {
+  type: string;
+  payload: {
+    oldTicker: string;
+    newTicker: string;
+  };
+}
+
+export const addTicker = (ticker: string) => {
   return {
     type: "ADD_TICKER",
-    payload: newValue,
+    payload: ticker,
   } as AddTicker;
 };
 
@@ -21,3 +29,10 @@ export const removeTicker = (ticker: string) => {
     payload: ticker,
   };
 };
+
+export const replaceTicker = (oldTicker: string, newTicker: string) => {
+  return {
+    type: "REPLACE_TICKER",
+    payload: { oldTicker, newTicker },
+  };
+}
