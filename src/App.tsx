@@ -6,7 +6,7 @@ import { RootState } from "./Reducers";
 import { SideBar } from "./SideBar/SideBar";
 
 function App() {
-  const security = useSelector((state: RootState) => state.ticker);
+  const security = useSelector((state: RootState) => state.ticker.toAdd);
   return (
     <div className="app">
       <StockChart security={security} />

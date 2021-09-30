@@ -1,8 +1,8 @@
-import { ChartData } from "../types";
+import { SeriesData } from "../types";
 import { dateToString } from "./dateToString";
 import { stringToDate } from "./stringToDate";
 
-export function loadChartData(security: string, start: number) {
+export function loadSeriesData(security: string, start: number) {
   const tillDate = new Date();
   const till = dateToString(tillDate);
 
@@ -27,7 +27,7 @@ function parseXML(xmlString: string) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(xmlString, "text/xml");
   const rows = doc.documentElement.getElementsByTagName("rows")[0];
-  const tradeData: ChartData = [];
+  const tradeData: SeriesData = [];
   rows.childNodes.forEach((rowNode) => {
     if (rowNode.nodeName === "row") {
       const el = rowNode as Element;

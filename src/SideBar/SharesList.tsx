@@ -3,7 +3,7 @@ import "./SharesList.scss";
 import { SecurityInfo } from "./types";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { changeCurrentTicker } from "../Actions";
+import { addTicker, removeTicker } from "../Actions";
 import { loadSecuritiesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
   const [sharesList, setSharesList] = useState([] as SecurityInfo[]);
+  const [selectedSharesList, setSelectedSharesList] = useState(["SBER"]);
 
   const dispatch = useDispatch();
 
@@ -22,16 +23,25 @@ export function SharesList() {
   }, []);
 
   const onShareClick = (secId: string) => () => {
-    dispatch(changeCurrentTicker(secId));
-    setInputValue("");
+    if (selectedSharesList.includes(secId)) {
+      dispatch(removeTicker(secId));
+      setSelectedSharesList(selectedSharesList.filter((id) => id !== secId));
+    } else {
+      dispatch(addTicker(secId));
+      setInputValue("");
+      setSelectedSharesList([...selectedSharesList, secId]);
+    }
   };
 
   const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
   const rowRenderer = ({ index, style }: ListRowProps) => {
     const { secId, shortName } = sharesListWhileSearch[index];
+    const className = selectedSharesList.includes(secId)
+      ? "shares-list__element shares-list__element--selected"
+      : "shares-list__element";
     return (
       <div key={secId} style={style}>
-        <div className="shares-list__element" onClick={onShareClick(secId)}>
+        <div className={className} onClick={onShareClick(secId)}>
           {shortName}
         </div>
       </div>

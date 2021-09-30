@@ -38,6 +38,11 @@
     &__element {
       height: 100%;
       padding: 0 5px;
+      
+      &--selected {
+        background-color: aqua;
+      }
+      
       &:hover {
         cursor: pointer;
         background-color: beige;

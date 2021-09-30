@@ -1,11 +1,23 @@
-export interface ChangeCurrentTicker {
+export interface AddTicker {
   type: string;
   payload: string;
 }
 
-export const changeCurrentTicker = (newValue: string) => {
+export interface RemoveTicker {
+  type: string;
+  payload: string;
+}
+
+export const addTicker = (newValue: string) => {
   return {
-    type: "CHANGE_CURRENT_TICKER",
+    type: "ADD_TICKER",
     payload: newValue,
-  } as ChangeCurrentTicker;
+  } as AddTicker;
+};
+
+export const removeTicker = (ticker: string) => {
+  return {
+    type: "REMOVE_TICKER",
+    payload: ticker,
+  };
 };
