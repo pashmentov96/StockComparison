@@ -1,18 +1,24 @@
 import { combineReducers } from "redux";
-import { AddTicker, RemoveTicker, ReplaceTicker } from "../Actions";
+import { TickerActions } from "../Actions";
+import { ReplaceTicker } from "../Actions/replaceTicker";
 
 const tickerReducer = (
-  state: TickerState = { toAdd: "SBER", toRemove: "" },
-  action: AddTicker | RemoveTicker | ReplaceTicker
+  state: TickerState = { toAdd: "SBER", toRemove: "", selectedTickers: new Set(["SBER"]) },
+  action: TickerActions
 ) => {
+  const newSelectedTickers = state.selectedTickers;
   switch (action.type) {
     case "ADD_TICKER":
-      return { toRemove: "", toAdd: action.payload };
+      newSelectedTickers.add(action.payload as string);
+      return { selectedTickers: newSelectedTickers, toRemove: "", toAdd: action.payload };
     case "REMOVE_TICKER":
-      return { toAdd: "", toRemove: action.payload };
+      newSelectedTickers.delete(action.payload as string);
+      return { selectedTickers: newSelectedTickers, toAdd: "", toRemove: action.payload };
     case "REPLACE_TICKER":
       const { payload: { newTicker, oldTicker } } = action as ReplaceTicker;
-      return { toAdd: newTicker, toRemove: oldTicker };
+      newSelectedTickers.delete(oldTicker);
+      newSelectedTickers.add(newTicker);
+      return { selectedTickers: newSelectedTickers, toAdd: newTicker, toRemove: oldTicker };
     default:
       return state;
   }
@@ -25,6 +31,7 @@ export const rootReducer = combineReducers({
 interface TickerState {
   toAdd: string;
   toRemove: string;
+  selectedTickers: Set<string>;
 }
 
 export interface RootState {

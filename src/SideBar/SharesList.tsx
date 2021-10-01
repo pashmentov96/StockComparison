@@ -2,18 +2,19 @@ import "./SharesList.scss";
 
 import { SecurityInfo } from "./types";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTicker, removeTicker, replaceTicker } from "../Actions";
 import { loadSecuritiesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import classNames from "classnames";
+import { RootState } from "../Reducers";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
   const [sharesList, setSharesList] = useState([] as SecurityInfo[]);
-  const [selectedSharesList, setSelectedSharesList] = useState(["SBER"]);
+  const selectedTickers = useSelector((state: RootState) => state.ticker.selectedTickers);
 
   const dispatch = useDispatch();
 
@@ -26,19 +27,18 @@ export function SharesList() {
   const onShareClick = (secId: string) => (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    if (selectedSharesList.length === 1 && !selectedSharesList.includes(secId)) {
-      dispatch(replaceTicker(selectedSharesList[0], secId))
+    if (selectedTickers.size === 1 && !selectedTickers.has(secId)) {
+      const oldTicker = Array.from(selectedTickers)[0];
+      dispatch(replaceTicker(oldTicker, secId))
       setInputValue("");
-      setSelectedSharesList([secId]);
     }
   };
 
   const onRemoveShareFromCompare = (secId: string) => (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    if (selectedSharesList.length > 1) {
+    if (selectedTickers.size > 1) {
       dispatch(removeTicker(secId));
-      setSelectedSharesList(selectedSharesList.filter((id) => id !== secId));
     }
   };
 
@@ -47,13 +47,12 @@ export function SharesList() {
   
     dispatch(addTicker(secId));
     setInputValue("");
-    setSelectedSharesList([...selectedSharesList, secId]);
   };
 
   const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
   const rowRenderer = ({ index, style }: ListRowProps) => {
     const { secId, shortName } = sharesListWhileSearch[index];
-    const isSelected = selectedSharesList.includes(secId);
+    const isSelected = selectedTickers.has(secId);
     const className = classNames("shares-list__element", {
       ["shares-list__element--selected"]: isSelected,
     });
