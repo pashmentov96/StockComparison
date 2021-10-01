@@ -1,38 +1,9 @@
-export interface AddTicker {
-  type: string;
-  payload: string;
-}
+import { AddTicker } from "./addTicker";
+import { RemoveTicker } from "./removeTicker";
+import { ReplaceTicker } from "./replaceTicker";
 
-export interface RemoveTicker {
-  type: string;
-  payload: string;
-}
+export { addTicker } from "./addTicker";
+export { removeTicker } from "./removeTicker";
+export { replaceTicker } from "./replaceTicker";
 
-export interface ReplaceTicker {
-  type: string;
-  payload: {
-    oldTicker: string;
-    newTicker: string;
-  };
-}
-
-export const addTicker = (ticker: string) => {
-  return {
-    type: "ADD_TICKER",
-    payload: ticker,
-  } as AddTicker;
-};
-
-export const removeTicker = (ticker: string) => {
-  return {
-    type: "REMOVE_TICKER",
-    payload: ticker,
-  };
-};
-
-export const replaceTicker = (oldTicker: string, newTicker: string) => {
-  return {
-    type: "REPLACE_TICKER",
-    payload: { oldTicker, newTicker },
-  };
-}
+export type TickerActions = AddTicker | RemoveTicker | ReplaceTicker;
