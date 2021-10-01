@@ -3,14 +3,50 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: 5px;
+  overflow-y: scroll;
+  
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: auto;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &__name {
+    margin-bottom: 5px;
+  }
 
   &__element {
-    padding: 0 5px;
+    display: flex;
+    padding: 0 0 0 5px;
     height: 25px;
 
     &:hover {
       cursor: pointer;
       background-color: beige;
+    }
+
+    &-name {
+      width: 45%;
+    }
+
+    &-price {
+      width: 45%;
+    }
+
+    &-action-icon {
+      position: relative;
+      background-color: transparent;
+      border: none;
+      right: 0;
+  
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
