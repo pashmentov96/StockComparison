@@ -1,0 +1,16 @@
+.currency-list {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &__element {
+    padding: 0 5px;
+    height: 25px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: beige;
+    }
+  }
+}

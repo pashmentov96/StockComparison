@@ -4,7 +4,7 @@ import { SecurityInfo } from "./types";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTicker, removeTicker, replaceTicker } from "../Actions";
-import { loadSecuritiesList, searchInSharesList } from "./utils";
+import { loadSharesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -19,7 +19,7 @@ export function SharesList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    loadSecuritiesList("stock", "shares", "TQBR").then((result) =>
+    loadSharesList().then((result) =>
       setSharesList(result)
     );
   }, []);
@@ -69,10 +69,10 @@ export function SharesList() {
   };
 
   return (
-    <div className="shares-list-wrapper">
+    <div className="shares-list-container">
       <div className="search-input-wrapper">
         <input
-          placeholder={"Search share"}
+          placeholder={"Search share by name"}
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
           className="search-input"
@@ -84,18 +84,21 @@ export function SharesList() {
           />
         </button>
       </div>
-      <AutoSizer>
-        {({ height, width }) => (
-          <List
-            width={width}
-            height={height}
-            rowCount={sharesListWhileSearch.length}
-            rowHeight={25}
-            rowRenderer={rowRenderer}
-            className="shares-list"
-          />
-        )}
-      </AutoSizer>
+      <div className="shares-list-wrapper">
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              width={width}
+              height={height}
+              rowCount={sharesListWhileSearch.length}
+              rowHeight={25}
+              rowRenderer={rowRenderer}
+              className="shares-list"
+              overscanRowCount={15}
+            />
+          )}
+        </AutoSizer>
+      </div>
     </div>
   );
 }

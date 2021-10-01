@@ -1,9 +1,9 @@
-.shares-list-wrapper {
+.shares-list-container {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 40%;
-  width: 180px;
+  width: 100%;
 
   .search-input-wrapper {
     width: 100%;
@@ -31,35 +31,37 @@
     }
   }
 
-  .shares-list {
-    margin-top: 10px;
+  .shares-list-wrapper {
     flex: 1;
+    margin-top: 10px;
 
-    &__element {
-      height: 100%;
-      padding: 0 5px;
-      
-      &--selected {
-        background-color: aqua;
+    .shares-list {
+      &__element {
+        height: 100%;
+        padding: 0 5px;
+        
+        &--selected {
+          background-color: aqua;
+        }
+        
+        &:hover {
+          cursor: pointer;
+          background-color: beige;
+        }
       }
-      
-      &:hover {
-        cursor: pointer;
-        background-color: beige;
-      }
-    }
 
-    &__action-icon {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      background-color: transparent;
-      border: none;
-      z-index: 1;
-  
-      &:hover {
-        cursor: pointer;
+      &__action-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        z-index: 1;
+    
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
