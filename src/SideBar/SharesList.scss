@@ -6,9 +6,11 @@
   width: 100%;
 
   .search-input-wrapper {
+    display: flex;
     width: 100%;
     margin-top: 8px;
     position: relative;
+    height: 24px;
 
     &__reset {
       position: absolute;
@@ -25,7 +27,9 @@
 
     .search-input {
       width: 100%;
-      margin-right: 8px;
+      height: 100%;
+
+      padding-left: 5px;
 
       border-width: 1px;
     }
