@@ -27,7 +27,7 @@ export function SharesList() {
   const onShareClick = (secId: string) => (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    if (selectedTickers.size === 1 && !selectedTickers.has(secId)) {
+    if (selectedTickers.length === 1 && !selectedTickers.includes(secId)) {
       const oldTicker = Array.from(selectedTickers)[0];
       dispatch(replaceTicker(oldTicker, secId))
       setInputValue("");
@@ -37,7 +37,7 @@ export function SharesList() {
   const onRemoveShareFromCompare = (secId: string) => (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    if (selectedTickers.size > 1) {
+    if (selectedTickers.length > 1) {
       dispatch(removeTicker(secId));
     }
   };
@@ -52,7 +52,7 @@ export function SharesList() {
   const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
   const rowRenderer = ({ index, style }: ListRowProps) => {
     const { secId, shortName } = sharesListWhileSearch[index];
-    const isSelected = selectedTickers.has(secId);
+    const isSelected = selectedTickers.includes(secId);
     const className = classNames("shares-list__element", {
       ["shares-list__element--selected"]: isSelected,
     });
