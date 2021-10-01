@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { AddTicker, RemoveTicker, ReplaceTicker } from "../Actions";
 
-export const tickerReducer = (
+const tickerReducer = (
   state: TickerState = { toAdd: "SBER", toRemove: "" },
   action: AddTicker | RemoveTicker | ReplaceTicker
 ) => {
