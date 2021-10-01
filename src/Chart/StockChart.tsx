@@ -8,13 +8,9 @@ import { XYChart, XYSeries } from "@amcharts/amcharts4/charts";
 import { useSelector } from "react-redux";
 import { RootState } from "../Reducers";
 
-export interface LineChartProps {
-  security: string;
-}
-
 type SeriesRefs = Map<string, XYSeries>;
 
-export function StockChart({ security }: LineChartProps) {
+export function StockChart() {
   const [seriesData, setSeriesData] = useState([] as SeriesData);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,6 +22,8 @@ export function StockChart({ security }: LineChartProps) {
   const tickerToRemove = useSelector(
     (state: RootState) => state.ticker.toRemove
   );
+
+  const security = useSelector((state: RootState) => state.ticker.toAdd);
 
   useEffect(() => {
     const chart = createChart([]);
