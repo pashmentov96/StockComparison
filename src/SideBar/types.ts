@@ -1,10 +1,10 @@
-export interface SecurityInfo {
+export interface ShareInfo {
   secId: string;
   shortName: string;
   listLevel: number;
 }
 
-export const securityColumns = ["SECID", "SHORTNAME", "LISTLEVEL"];
+export const shareColumns = ["SECID", "SHORTNAME", "LISTLEVEL"];
 
 export interface CurrencyInfo {
   secId: string;

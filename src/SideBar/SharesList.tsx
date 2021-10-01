@@ -1,6 +1,6 @@
 import "./SharesList.scss";
 
-import { SecurityInfo } from "./types";
+import { ShareInfo } from "./types";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTicker, removeTicker, replaceTicker } from "../Actions";
@@ -13,7 +13,7 @@ import { RootState } from "../Reducers";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
-  const [sharesList, setSharesList] = useState([] as SecurityInfo[]);
+  const [sharesList, setSharesList] = useState([] as ShareInfo[]);
   const selectedTickers = useSelector((state: RootState) => state.ticker.selectedTickers);
 
   const dispatch = useDispatch();

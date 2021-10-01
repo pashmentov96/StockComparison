@@ -1,7 +1,7 @@
 import {
-  SecurityInfo,
+  ShareInfo,
   CurrencyInfo,
-  securityColumns,
+  shareColumns,
   currencyColumns,
 } from "./types";
 
@@ -11,13 +11,13 @@ export function loadSharesList() {
       secId: sec[0],
       shortName: sec[1],
       listLevel: sec[2],
-    } as SecurityInfo);
+    } as ShareInfo);
 
-  return loadSecuritiesList<SecurityInfo>(
+  return loadSecuritiesList<ShareInfo>(
     "stock",
     "shares",
     "TQBR",
-    securityColumns,
+    shareColumns,
     elementToSecurityInfo
   );
 }
@@ -83,7 +83,7 @@ function loadSecuritiesList<T>(
 }
 
 export function searchInSharesList(
-  sharesList: SecurityInfo[],
+  sharesList: ShareInfo[],
   searchString: string
 ) {
   if (searchString === "") {
