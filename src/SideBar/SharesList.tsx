@@ -7,21 +7,25 @@ import { addTicker, removeTicker, replaceTicker } from "../Actions";
 import { loadSharesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import {
+  faTimesCircle,
+  faCheckCircle,
+  faFrown,
+} from "@fortawesome/free-regular-svg-icons";
 import classNames from "classnames";
 import { RootState } from "../Reducers";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
   const [sharesList, setSharesList] = useState([] as ShareInfo[]);
-  const selectedTickers = useSelector((state: RootState) => state.ticker.selectedTickers);
+  const selectedTickers = useSelector(
+    (state: RootState) => state.ticker.selectedTickers
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    loadSharesList().then((result) =>
-      setSharesList(result)
-    );
+    loadSharesList().then((result) => setSharesList(result));
   }, []);
 
   const onShareClick = (secId: string) => (event: React.MouseEvent) => {
@@ -29,22 +33,23 @@ export function SharesList() {
 
     if (selectedTickers.length === 1 && !selectedTickers.includes(secId)) {
       const oldTicker = Array.from(selectedTickers)[0];
-      dispatch(replaceTicker(oldTicker, secId))
+      dispatch(replaceTicker(oldTicker, secId));
       setInputValue("");
     }
   };
 
-  const onRemoveShareFromCompare = (secId: string) => (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const onRemoveShareFromCompare =
+    (secId: string) => (event: React.MouseEvent) => {
+      event.stopPropagation();
 
-    if (selectedTickers.length > 1) {
-      dispatch(removeTicker(secId));
-    }
-  };
+      if (selectedTickers.length > 1) {
+        dispatch(removeTicker(secId));
+      }
+    };
 
   const onAddShareToCompare = (secId: string) => (event: React.MouseEvent) => {
     event.stopPropagation();
-  
+
     dispatch(addTicker(secId));
     setInputValue("");
   };
@@ -60,8 +65,18 @@ export function SharesList() {
       <div key={secId} style={style}>
         <div className={className} onClick={onShareClick(secId)}>
           <span>{shortName}</span>
-          <button className="shares-list__action-icon" onClick={isSelected ? onRemoveShareFromCompare(secId) : onAddShareToCompare(secId)}>
-            <FontAwesomeIcon icon={isSelected ? faTimesCircle : faCheckCircle} />
+          <button
+            className="shares-list__action-icon"
+            onClick={
+              isSelected
+                ? onRemoveShareFromCompare(secId)
+                : onAddShareToCompare(secId)
+            }
+            title={isSelected ? "Remove from compare" : "Add to compare"}
+          >
+            <FontAwesomeIcon
+              icon={isSelected ? faTimesCircle : faCheckCircle}
+            />
           </button>
         </div>
       </div>
@@ -81,23 +96,31 @@ export function SharesList() {
           <FontAwesomeIcon
             icon={faTimesCircle}
             onClick={() => setInputValue("")}
+            title="Clear search"
           />
         </button>
       </div>
       <div className="shares-list-wrapper">
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              width={width}
-              height={height}
-              rowCount={sharesListWhileSearch.length}
-              rowHeight={25}
-              rowRenderer={rowRenderer}
-              className="shares-list"
-              overscanRowCount={15}
-            />
-          )}
-        </AutoSizer>
+        {sharesListWhileSearch.length === 0 ? (
+          <div className="nothing-found-placeholder">
+            <FontAwesomeIcon icon={faFrown} size={"2x"} />
+            <span>Nothing found...</span>
+          </div>
+        ) : (
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                width={width}
+                height={height}
+                rowCount={sharesListWhileSearch.length}
+                rowHeight={25}
+                rowRenderer={rowRenderer}
+                className="shares-list"
+                overscanRowCount={15}
+              />
+            )}
+          </AutoSizer>
+        )}
       </div>
     </div>
   );
