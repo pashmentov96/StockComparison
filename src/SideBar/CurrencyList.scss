@@ -30,8 +30,12 @@
       background-color: beige;
     }
 
+    &--selected {
+      background-color: aqua;
+    }
+
     &-name {
-      width: 45%;
+      flex: 1;
     }
 
     &-price {
@@ -42,7 +46,6 @@
       position: relative;
       background-color: transparent;
       border: none;
-      right: 0;
   
       &:hover {
         cursor: pointer;

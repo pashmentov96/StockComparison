@@ -64,7 +64,7 @@ export function SharesList() {
     return (
       <div key={secId} style={style}>
         <div className={className} onClick={onShareClick(secId)}>
-          <span>{shortName}</span>
+          <span className="shares-list__name">{shortName}</span>
           <button
             className="shares-list__action-icon"
             onClick={
@@ -101,7 +101,7 @@ export function SharesList() {
         </button>
       </div>
       <div className="shares-list-wrapper">
-        {sharesListWhileSearch.length === 0 ? (
+        {inputValue !== "" && sharesListWhileSearch.length === 0 ? (
           <div className="nothing-found-placeholder">
             <FontAwesomeIcon icon={faFrown} size={"2x"} />
             <span>Nothing found...</span>

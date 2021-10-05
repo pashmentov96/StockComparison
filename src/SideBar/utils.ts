@@ -22,6 +22,14 @@ export function loadSharesList() {
   );
 }
 
+export const currencySecuritiesList = [
+  "USD000000TOD",
+  "EUR_RUB__TOD",
+  "EURUSD000TOD",
+  "GBPRUB_TOD",
+  "JPYRUB_TOD",
+];;
+
 export function loadCurrenciesList() {
   const elementToSecurityInfo = (sec: any) =>
     ({
@@ -30,21 +38,13 @@ export function loadCurrenciesList() {
       prevPrice: sec[2],
     } as CurrencyInfo);
 
-  const securitiesList = [
-    "USD000000TOD",
-    "EUR_RUB__TOD",
-    "EURUSD000TOD",
-    "GBPRUB_TOD",
-    "JPYRUB_TOD",
-  ];
-
   return loadSecuritiesList<CurrencyInfo>(
     "currency",
     "selt",
     "CETS",
     currencyColumns,
     elementToSecurityInfo,
-    securitiesList
+    currencySecuritiesList
   );
 }
 
