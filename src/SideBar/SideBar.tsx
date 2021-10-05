@@ -3,11 +3,12 @@ import "./SideBar.scss";
 import { SharesList } from "./SharesList";
 import { CurrencyList } from "./CurrencyList";
 
+const SIDE_BAR_CLASS = "side-bar";
+
 export function SideBar() {
-  // TODO: currencyList
   // TODO: indeciesList
   return (
-    <div className="side-bar">
+    <div className={SIDE_BAR_CLASS}>
       <span>Tickers selection:</span>
       <SharesList />
       <CurrencyList />

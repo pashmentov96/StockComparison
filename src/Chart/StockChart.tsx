@@ -10,6 +10,8 @@ import { RootState } from "../Reducers";
 
 type SeriesRefs = Map<string, XYSeries>;
 
+const CHART_CONTAINER_CLASS = "chart-container";
+
 export function StockChart() {
   const [seriesData, setSeriesData] = useState([] as SeriesData);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -117,5 +119,5 @@ export function StockChart() {
     }
   }, [isLoaded, currentIndex]);
 
-  return <div id="chart-div" className="chart-container"></div>;
+  return <div id="chart-div" className={CHART_CONTAINER_CLASS}></div>;
 }
