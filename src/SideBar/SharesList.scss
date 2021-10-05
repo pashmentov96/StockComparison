@@ -1,19 +1,21 @@
+@import "./styles.scss";
+
 .shares-list-container {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 40%;
   width: 100%;
-  border-top: 1px solid #d4d4d4;
+  border-top: 1px solid $list-border-color;
 
   &__name {
-    color: #7B7B7B;
+    color: $list-name-color;
     margin-bottom: 4px;
   }
 
   .shares-list {
     flex: 1;
     margin-top: 8px;
-    outline: #d4d4d4 solid 1px;
+    outline: $list-border-color solid 1px;
   }
 }
