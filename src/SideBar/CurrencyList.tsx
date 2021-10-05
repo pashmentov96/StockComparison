@@ -18,7 +18,7 @@ export function CurrencyList() {
 
   return (
     <div className={CURRENCY_LIST_CLASS}>
-      <span className={CURRENCY_LIST_NAME_CLASS}>Forex:</span>
+      <span className={CURRENCY_LIST_NAME_CLASS}>Forex</span>
       {currencyList.map((currency) => {
         const { secId, prevPrice, secName } = currency;
         return (

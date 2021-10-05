@@ -5,4 +5,8 @@
   flex-direction: column;
   padding: 0 16px;
   position: relative;
+
+  &__header {
+    font-weight: 600;
+  }
 }

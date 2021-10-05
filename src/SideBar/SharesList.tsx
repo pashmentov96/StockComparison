@@ -10,6 +10,7 @@ import { SearchInput } from "./SearchInput";
 
 const SHARES_LIST_CONTAINER_CLASS = "shares-list-container";
 const SHARES_LIST = "shares-list";
+const SHARES_LIST_NAME = `${SHARES_LIST_CONTAINER_CLASS}__name`;
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
@@ -31,6 +32,7 @@ export function SharesList() {
 
   return (
     <div className={SHARES_LIST_CONTAINER_CLASS}>
+      <span className={SHARES_LIST_NAME}>Stocks</span>
       <SearchInput
         placeholder="Search share by name"
         value={inputValue}
