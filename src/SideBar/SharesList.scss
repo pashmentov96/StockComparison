@@ -59,35 +59,5 @@ $active-search-input-shadow-color: #f0ec14;
       justify-content: center;
       flex-direction: column;
     }
-
-    .shares-list {
-      &__element {
-        height: 100%;
-        padding: 0 5px;
-        
-        &--selected {
-          background-color: aqua;
-        }
-        
-        &:hover {
-          cursor: pointer;
-          background-color: beige;
-        }
-      }
-
-      &__action-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        background-color: transparent;
-        border: none;
-        z-index: 1;
-    
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
   }
 }

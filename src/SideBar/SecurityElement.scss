@@ -1,0 +1,33 @@
+.security-element {
+  display: flex;
+  padding: 0 0 0 5px;
+  height: 100%;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: beige;
+  }
+
+  &--selected {
+    background-color: aqua;
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  &__price {
+    width: 45%;
+  }
+
+  &__action-icon {
+    position: relative;
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,84 +1,30 @@
 import "./SharesList.scss";
 
 import { ShareInfo } from "./types";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addTicker, removeTicker, replaceTicker } from "../Actions";
+import { useEffect, useState } from "react";
 import { loadSharesList, searchInSharesList } from "./utils";
 import { List, ListRowProps, AutoSizer } from "react-virtualized";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimesCircle,
-  faCheckCircle,
   faFrown,
 } from "@fortawesome/free-regular-svg-icons";
-import classNames from "classnames";
-import { RootState } from "../Reducers";
+import { SecurityElement } from "./SecurityElement";
 
 export function SharesList() {
   const [inputValue, setInputValue] = useState("");
   const [sharesList, setSharesList] = useState([] as ShareInfo[]);
-  const selectedTickers = useSelector(
-    (state: RootState) => state.ticker.selectedTickers
-  );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     loadSharesList().then((result) => setSharesList(result));
   }, []);
 
-  const onShareClick = (secId: string) => (event: React.MouseEvent) => {
-    event.stopPropagation();
-
-    if (selectedTickers.length === 1 && !selectedTickers.includes(secId)) {
-      const oldTicker = Array.from(selectedTickers)[0];
-      dispatch(replaceTicker(oldTicker, secId));
-      setInputValue("");
-    }
-  };
-
-  const onRemoveShareFromCompare =
-    (secId: string) => (event: React.MouseEvent) => {
-      event.stopPropagation();
-
-      if (selectedTickers.length > 1) {
-        dispatch(removeTicker(secId));
-      }
-    };
-
-  const onAddShareToCompare = (secId: string) => (event: React.MouseEvent) => {
-    event.stopPropagation();
-
-    dispatch(addTicker(secId));
-    setInputValue("");
-  };
-
   const sharesListWhileSearch = searchInSharesList(sharesList, inputValue);
   const rowRenderer = ({ index, style }: ListRowProps) => {
     const { secId, shortName } = sharesListWhileSearch[index];
-    const isSelected = selectedTickers.includes(secId);
-    const className = classNames("shares-list__element", {
-      ["shares-list__element--selected"]: isSelected,
-    });
     return (
       <div key={secId} style={style}>
-        <div className={className} onClick={onShareClick(secId)}>
-          <span className="shares-list__name">{shortName}</span>
-          <button
-            className="shares-list__action-icon"
-            onClick={
-              isSelected
-                ? onRemoveShareFromCompare(secId)
-                : onAddShareToCompare(secId)
-            }
-            title={isSelected ? "Remove from compare" : "Add to compare"}
-          >
-            <FontAwesomeIcon
-              icon={isSelected ? faTimesCircle : faCheckCircle}
-            />
-          </button>
-        </div>
+        <SecurityElement name={shortName} secId={secId} />
       </div>
     );
   };

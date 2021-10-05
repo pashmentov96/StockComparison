@@ -21,35 +21,7 @@
   }
 
   &__element {
-    display: flex;
-    padding: 0 0 0 5px;
+    width: 100%;
     height: 25px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: beige;
-    }
-
-    &--selected {
-      background-color: aqua;
-    }
-
-    &-name {
-      flex: 1;
-    }
-
-    &-price {
-      width: 45%;
-    }
-
-    &-action-icon {
-      position: relative;
-      background-color: transparent;
-      border: none;
-  
-      &:hover {
-        cursor: pointer;
-      }
-    }
   }
 }
